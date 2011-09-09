@@ -30,8 +30,13 @@ ListProperty, DictProperty, StringListProperty, contain, StringProperty, \
 SetProperty
 
 except ImportError:
-    import traceback
-    traceback.print_exc()
+    # When installing couchdbkit package, setup.py only needs __version__ and
+    # because required packages such as restkit likely not installed yet, do
+    # not show traceback caused by ImportError.
+    import sys
+    if not sys.argv[0].endswith('setup.py'):
+        import traceback
+        traceback.print_exc()
 
 import logging    
 
